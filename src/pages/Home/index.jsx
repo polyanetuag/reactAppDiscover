@@ -7,7 +7,6 @@ export function Home() {
   const [students, setStudents] = useState([]);
 
   function handleAddStudent() {
-    console.log('clicou')
     const newStudent = {
       name: studentName,
       time: new Date().toLocaleTimeString("pt-br", {
@@ -17,7 +16,7 @@ export function Home() {
       }),
     };
     // imutabilidade do estado - junção de arrays anterior e novo
-    setStudents(prevState => [...prevState, newStudent]);
+    setStudents((prevState) => [...prevState, newStudent]);
   }
 
   return (
@@ -26,14 +25,14 @@ export function Home() {
       <input
         type="text"
         placeholder="Digite o nome..."
-        onChange={e => setStudentName(e.target.value)}
+        onChange={(e) => setStudentName(e.target.value)}
       />
       <button type="button" onClick={handleAddStudent}>
         Adicionar
       </button>
-      {students.map(student => 
-        <Card name={student.name} time={student.time} />
-      )}
+      {students.map((student) => (
+        <Card name={student.name} time={student.time} key={student.time} />
+      ))}
     </div>
   );
 }
