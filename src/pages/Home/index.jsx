@@ -5,7 +5,7 @@ import { Card } from "../../components/Card";
 export function Home() {
   const [studentName, setStudentName] = useState("");
   const [students, setStudents] = useState([]);
-  const [user, setUser] = useState({name: '', avatar:''});
+  const [user, setUser] = useState({ name: "", avatar: "" });
 
   function handleAddStudent() {
     const newStudent = {
@@ -20,15 +20,19 @@ export function Home() {
     setStudents((prevState) => [...prevState, newStudent]);
   }
 
+  //usando async await no useEffect
   useEffect(() => {
-    fetch("https://api.github.com/users/polyanetuag")
-    .then(response => response.json())
-    .then(data => {
+    async function fetchData() {
+      const response = await fetch("https://api.github.com/users/polyanetuag");
+      const data = await response.json();
+
       setUser({
         name: data.name,
-        avatar: data.avatar_url
+        avatar: data.avatar_url,
       });
-    })
+    }
+
+    fetchData();
   }, []);
 
   return (
