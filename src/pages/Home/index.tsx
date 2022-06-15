@@ -2,10 +2,20 @@ import React, { useEffect, useState } from "react";
 import "./styles.css";
 import { Card, CardProps } from "../../components/Card";
 
+type ProfileProps = {
+  name: string;
+  avatar_url: string;
+};
+
+type User = {
+  name: string;
+  avatar: string;
+};
+
 export function Home() {
   const [studentName, setStudentName] = useState("");
   const [students, setStudents] = useState<CardProps[]>([]);
-  const [user, setUser] = useState({ name: "", avatar: "" });
+  const [user, setUser] = useState<User>({} as User);
 
   function handleAddStudent() {
     const newStudent = {
@@ -24,7 +34,7 @@ export function Home() {
   useEffect(() => {
     async function fetchData() {
       const response = await fetch("https://api.github.com/users/polyanetuag");
-      const data = await response.json();
+      const data = await response.json() as ProfileProps;
 
       setUser({
         name: data.name,
